@@ -16,6 +16,10 @@ Block::~Block()
 {
 }
 
+Block::Block()
+{
+}
+
 int16_t * Block::getData() {
 	return this->data;
 }

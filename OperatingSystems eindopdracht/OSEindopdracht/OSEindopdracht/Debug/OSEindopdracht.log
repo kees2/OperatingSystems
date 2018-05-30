@@ -1,2 +1,3 @@
 ﻿  fileHandler.cpp
+c:\users\kees\documents\github\operatingsystems\operatingsystems\operatingsystems eindopdracht\oseindopdracht\oseindopdracht\filehandler.cpp(46): warning C4244: 'initializing': conversion from 'std::streamoff' to 'int', possible loss of data
   OSEindopdracht.vcxproj -> C:\Users\kees\Documents\GitHub\OperatingSystems\OperatingSystems\OperatingSystems eindopdracht\OSEindopdracht\Debug\OSEindopdracht.exe

@@ -5,6 +5,7 @@ class Block
 public:
 	Block(int id, int16_t blockBytes[1024]);
 	~Block();
+	Block();
 	int16_t * getData();
 private:
 	int blockId;

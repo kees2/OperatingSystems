@@ -147,18 +147,18 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Block.h" />
-    <ClInclude Include="BlockQueue.h" />
     <ClInclude Include="fileHandler.h" />
     <ClInclude Include="Filters.h" />
+    <ClInclude Include="Queue.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Block.cpp" />
-    <ClCompile Include="BlockQueue.cpp" />
     <ClCompile Include="fileHandler.cpp" />
     <ClCompile Include="Filters.cpp" />
     <ClCompile Include="OSEindopdracht.cpp" />
+    <ClCompile Include="Queue.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
