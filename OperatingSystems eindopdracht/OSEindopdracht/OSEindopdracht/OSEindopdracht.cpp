@@ -5,12 +5,15 @@
 #include <iostream>
 #include <fstream>
 #include "filters.h"
+#include "Inttypes.h"
+#include "fileHandler.h"
 
 #define SAMPLE_RATE 44100 // Hz
 #define BITS_PER_SAMPLE 16 // bits
-#define N_SAMPLES 16000 // n
+#define N_SAMPLES 1028 // n
 
-int readPCM(int *data, unsigned int samp_rate, unsigned int bits_per_samp, unsigned int num_samp);
+int readPCM(int16_t *data, unsigned int samp_rate, unsigned int bits_per_samp, unsigned int num_samp);
+void writePCM(int16_t *data, unsigned int samp_rate, unsigned int bits_per_samp, unsigned int num_samp);
 int convertBitSize(unsigned int in, int bps);
 
 using namespace std;
@@ -19,28 +22,14 @@ using namespace std;
 
 int main(int argc, char** argv)
 {
-	cout << "Das program hat angefangen" << endl;
-	double b0 = 0, b1 = 0, b2 = 0, a1, a2;
-	Filters filter;
 
-	printf("SAMPLE RATE = [%d] BITS PER SAMPLE = [%d] N SAMPLES = [%d]\n", SAMPLE_RATE, BITS_PER_SAMPLE, N_SAMPLES);
+	fileHandler file1;
 
-	int *data = (int *)malloc(N_SAMPLES * sizeof(int));
-	int *outData = (int *)malloc(N_SAMPLES * sizeof(int));
+	file1.readFile("you_and_i.pcm");
+	file1.writeFile("OutFile.pcm");
+	
+	//double b0 = 0, b1 = 0, b2 = 0, a1, a2;
 
-	readPCM(data, SAMPLE_RATE, BITS_PER_SAMPLE, N_SAMPLES);
-
-
-	unsigned int i;
-	for (i = 0; i < N_SAMPLES; ++i) {
-		printf("%d\n", data[i]);
-	}
-
-	filter.bassCoefficients(100, &b0, &b1, &b2, &a1, &a2);
-
-	for (int i = 3; i < N_SAMPLES; ++i) {
-		outData[i] = (b0 * data[i]) + (b1 * data[i - 1]) + (b2 * data[i - 2]) - (a1*outData[i - 1]) - (a2*outData[i - 2]);
-	}
 
 
 
@@ -54,14 +43,16 @@ int convertBitSize(unsigned int in, int bps)
 	return in > max ? in - (max << 1) : in;
 }
 
-int readPCM(int *data, unsigned int samp_rate, unsigned int bits_per_samp, unsigned int num_samp)
+int readPCM(int16_t *data, unsigned int samp_rate, unsigned int bits_per_samp, unsigned int num_samp)
 
 {
-	FILE *fp;
-	unsigned char buf;
+	FILE *fp, *fp2;
+	int16_t buf;
 	unsigned int i, j;
 
 	fp = fopen("you_and_i.pcm", "r");
+	fp2 = fp = fopen("mixedFile.pcm", "w");
+	
 
 	for (i = 0; i < num_samp; ++i) {
 
@@ -70,21 +61,25 @@ int readPCM(int *data, unsigned int samp_rate, unsigned int bits_per_samp, unsig
 		for (j = 0; j != BITS_PER_SAMPLE; j += 8) {
 			fread(&buf, 1, 1, fp);
 			tmp += buf << j;
+			
+			fwrite(&buf, 1, 1, fp2);
 		}
-
-		data[i] = convertBitSize(tmp, BITS_PER_SAMPLE);
+		printf("%d \n", tmp);
+		//printf("%d\n", tmp);
+		//data[i] = convertBitSize(tmp, BITS_PER_SAMPLE);
+		data[i] = tmp;
 
 	}
 	return 1;
 }
 
 //deze verder af fixen
-void writePCM(int *data, unsigned int samp_rate, unsigned int bits_per_samp, unsigned int num_samp){
+void writePCM(int16_t *data, unsigned int samp_rate, unsigned int bits_per_samp, unsigned int num_samp){
 
 	FILE *fp;
 	unsigned int i, j;
 
-	fp = fopen("mixedFile.pcm", "r");
+	fp = fopen("mixedFile.pcm", "w");
 
 	for (i = 0; i < num_samp; ++i) {
 

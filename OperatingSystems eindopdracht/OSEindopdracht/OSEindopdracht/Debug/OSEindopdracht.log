@@ -1,3 +1,2 @@
-﻿  OSEindopdracht.cpp
-c:\users\kees\documents\github\operatingsystems\operatingsystems\operatingsystems eindopdracht\oseindopdracht\oseindopdracht\oseindopdracht.cpp(39): error C2664: 'void Filters::bassCoefficients(int,double *,double *,double *,double *,double *)': cannot convert argument 3 from 'double' to 'double *'
-c:\users\kees\documents\github\operatingsystems\operatingsystems\operatingsystems eindopdracht\oseindopdracht\oseindopdracht\oseindopdracht.cpp(42): error C2296: '*': illegal, left operand has type 'double *'
+﻿  fileHandler.cpp
+  OSEindopdracht.vcxproj -> C:\Users\kees\Documents\GitHub\OperatingSystems\OperatingSystems\OperatingSystems eindopdracht\OSEindopdracht\Debug\OSEindopdracht.exe

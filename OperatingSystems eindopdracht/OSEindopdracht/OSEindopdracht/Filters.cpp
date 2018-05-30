@@ -4,6 +4,8 @@
 #include <fstream>
 #include "math.h"
 
+#pragma warning(disable:4996)
+
 Filters::Filters()
 {
 }
@@ -52,4 +54,16 @@ void Filters::trebleCoefficients(int intensity, double *b0, double *b1, double *
 	*b0 = (a*((a + 1) + (a - 1)*cos(w0) + 2.0*sqrt(a)*alpha)) / a0;
 	*b1 = (-2.0*a*((a - 1) + (a + 1)*cos(w0))) / a0;
 	*b2 = (a*((a + 1) + (a - 1)*cos(w0) - 2.0*sqrt(a)*alpha)) / a0;
+}
+
+int16_t * Filters::bassBlockModulation(Block block) {
+	printf("In bass modulation");
+	int16_t * dataInBuffer = new int16_t[1024];
+	int16_t * dataOutBuffer = new int16_t[1024];
+	dataInBuffer = block.getData();
+	for (int i = 0; i < 1024; i++) {
+		printf("%d", dataInBuffer[i]);
+	}
+	
+	return dataOutBuffer;
 }
