@@ -22,15 +22,42 @@ using namespace std;
 
 int main(int argc, char** argv)
 {
-
 	fileHandler file1;
+	int threads;
+	int bassIntensity;
+	int trebleIntensity;
+	char * inputFile;
+	char * outputFile;
+
+	if (argc == 6)
+	{
+		if ((argv[1] >= 1) && (arv[1] <= 8))
+			threads = argv[1];
+		else
+			cout << "aantal threads moet 1 t/m 8 zijn" << endl;
+		if ((argv[2] >= -6) && (arv[2] <= 6))
+			bassIntensity = argv[2];
+		else
+			cout << "bass intensity moet -6 t/m 6 zijn" << endl;
+		if((argv[3] >= -6) && (arv[3] <= 6))
+			trebleIntensity = argv[3];
+		else
+			cout << "bass intensity moet -6 t/m 6 zijn" << endl;
+		if(argv[4] == "you_and_i.pcm")
+			inputFile = argv[4];
+		else
+			cout << "foute input file" << endl;
+		if(argv[5] == "OutFile.pcm")
+				inputFile = argv[5];
+		else
+			cout << "foute output file" << endl;
+	}
+	else
+		cout << "Foute parameters" << endl;
+
 
 	file1.readFile("you_and_i.pcm");
 	file1.writeFile("OutFile.pcm");
-	
-	//double b0 = 0, b1 = 0, b2 = 0, a1, a2;
-
-
 
 
 	cin.get();
@@ -52,7 +79,7 @@ int readPCM(int16_t *data, unsigned int samp_rate, unsigned int bits_per_samp, u
 
 	fp = fopen("you_and_i.pcm", "r");
 	fp2 = fp = fopen("mixedFile.pcm", "w");
-	
+
 
 	for (i = 0; i < num_samp; ++i) {
 
@@ -61,7 +88,7 @@ int readPCM(int16_t *data, unsigned int samp_rate, unsigned int bits_per_samp, u
 		for (j = 0; j != BITS_PER_SAMPLE; j += 8) {
 			fread(&buf, 1, 1, fp);
 			tmp += buf << j;
-			
+
 			fwrite(&buf, 1, 1, fp2);
 		}
 		printf("%d \n", tmp);

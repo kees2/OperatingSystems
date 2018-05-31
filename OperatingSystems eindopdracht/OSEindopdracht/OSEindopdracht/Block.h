@@ -4,10 +4,9 @@ class Block
 {
 public:
 	Block(int id, int16_t blockBytes[1024]);
-	~Block();
+	virtual ~Block(void);
 	int16_t * getData();
 private:
 	int blockId;
-	int16_t data[1024];
+	int16_t * data;
 };
-
