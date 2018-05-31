@@ -15,6 +15,10 @@ Block::~Block()
 	delete[] data;
 }
 
+Block::Block()
+{
+}
+
 int16_t * Block::getData() {
 	return this->data;
 }
