@@ -23,3 +23,13 @@ Block::Block()
 int16_t * Block::getData() {
 	return this->data;
 }
+
+int Block::getId() {
+	return blockId;
+}
+
+void Block::printBlock() {
+	for (int i = 0; i < 1024; i++) {
+		printf("%d\n", data[i]);
+	}
+}

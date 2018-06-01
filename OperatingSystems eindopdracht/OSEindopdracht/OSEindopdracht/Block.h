@@ -7,8 +7,10 @@ public:
 	~Block();
 	Block();
 	int16_t * getData();
+	int getId();
+	void printBlock();
 private:
-	int blockId;
+	int blockId = 0;
 	int16_t data[1024];
 };
 

@@ -17,8 +17,8 @@ class Queue
     protected:
 
     private:
-        int maxSize = 100000;
-		Block queArray[100000];
+        int maxSize = 50;
+		Block queArray[50];
         int front;
         int rear;
         int numberItems;
