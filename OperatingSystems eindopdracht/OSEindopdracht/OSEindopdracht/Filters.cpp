@@ -50,8 +50,8 @@ void Filters::trebleCoefficients(int intensity)
 	double alpha = sin(w0) / (2.0*qFactor);
 	double a0_treble = (a + 1) - (a - 1)*cos(w0) + 2.0*sqrt(a)*alpha;
 
-	a1_treble = -(2.0*((a - 1) - (a + 1)*cos(w0))) / a0_treble;
-	a2_treble = -((a + 1) - (a - 1)*cos(w0) - 2.0*sqrt(a)*alpha) / a0_treble;
+	a1_treble = (2.0*((a - 1) - (a + 1)*cos(w0))) / a0_treble;
+	a2_treble = ((a + 1) - (a - 1)*cos(w0) - 2.0*sqrt(a)*alpha) / a0_treble;
 
 	b0_treble = (a*((a + 1) + (a - 1)*cos(w0) + 2.0*sqrt(a)*alpha)) / a0_treble;
 	b1_treble = (-2.0*a*((a - 1) + (a + 1)*cos(w0))) / a0_treble;
@@ -87,13 +87,27 @@ void Filters::bassModulation(Block *block) {
 		}
 		block->getData()[i] = dataOut[i];
 	}
-	if (block->getId() == 1) {
-		block->printBlock();
+}
+
+
+
+void Filters::trebleModulation(Block *block) {
+	signed short dataIn[1024];
+	signed short dataOut[1024];
+
+	for (int i = 0; i < 1024; i++) {
+		dataIn[i] = block->getData()[i];
+		dataOut[i] = 0;
+		if (i > 2) {
+			dataOut[i] = (b0_treble * dataIn[i]) + (b1_treble * dataIn[i - 1]) + (b2_treble * dataIn[i - 2]) - (a1_treble*dataOut[i - 1]) - (a2_treble * dataOut[i - 2]);
+		}
+		block->getData()[i] = dataOut[i];
 	}
 }
 
 
 
+/*
 void Filters::trebleModulation(Block * block) {
 	for (int i = 0; i < 1024; i++) {
 		if (i > 2)
@@ -101,4 +115,4 @@ void Filters::trebleModulation(Block * block) {
 		else
 			block->getData()[i] = 0;
 	}
-}
+}*/

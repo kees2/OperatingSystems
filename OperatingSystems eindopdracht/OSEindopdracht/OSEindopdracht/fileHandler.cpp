@@ -50,10 +50,7 @@ void fileHandler::readFile(char* fileName) {
 			
 			Block block(blockId, data);
 			
-			
-			//blockqueue.insert(block);
-			//writeBlockToBuffer(&blockqueue.remove());
-			//filter.bassModulation(&block);
+			filter.bassModulation(&block);
 			filter.trebleModulation(&block);
 			writeBlockToBuffer(&block);
 			
