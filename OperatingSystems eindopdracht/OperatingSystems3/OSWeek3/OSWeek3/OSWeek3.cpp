@@ -10,8 +10,8 @@ using namespace std;
 
 // Parameters die je kunt veranderen om queue te testen
 // Als alles lijkt te werken, moet je NBOXES maar eens op 1000 zetten en TICK op 10
-const int TICK = 1000;  // de basis-tijdeenheid in miliseconden
-const int NBOXES = 1000; // aantal dozen dat een producent maakt en een consument gebruikt
+const int TICK = 100;  // de basis-tijdeenheid in miliseconden
+const int NBOXES = 100; // aantal dozen dat een producent maakt en een consument gebruikt
 const int BUFLEN = 4;   // de lengte van de queue
 
 						// Heb mijn eigen random() geschreven

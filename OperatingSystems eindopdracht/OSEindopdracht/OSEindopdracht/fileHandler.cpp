@@ -38,6 +38,7 @@ void fileHandler::readFile(char* fileName) {
 	int length = fp.tellg();
 	fp.seekg(0, fp.beg);
 	length = length / 2;
+	cout << length << endl;
 	
 	while (fp.read((char *)&dataBuffer, sizeof(int16_t))) {	//(char *)
 		

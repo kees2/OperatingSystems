@@ -1,5 +1,6 @@
-#include <math.h>
+
 #include "Filter.h"
+#include <math.h>
 
 Filter::Filter(int bassIntensity, int trebleIntensity)
 {

@@ -1,5 +1,10 @@
 #include <fstream>
 #include "File.h"
+#include <iostream>
+
+int readingFinished = 0;
+int bassFinished = 0;
+int trebleFinished = 0;
 
 File::File(void)
 {
@@ -53,13 +58,15 @@ void File::read(void)
 			dataCounter = 0;
 		}
 	}
+	std::cout << "Reading has been finished " << std::endl;
+	readingFinished = 1;
 }
 
 void File::bassMod(void)
 {
 	Block * block;
 	int i = 0;
-	while (1)
+	while(readingFinished != 1 || bassQ->isEmpty() == 0)
 	{
 		bassmtx.lock();
 		while (bassQ->isEmpty()) {
@@ -74,14 +81,19 @@ void File::bassMod(void)
 		filter->bassModulation(block);
 		trebleQ->insert(block);
 		SetEvent(trebleCanGet);
+		std::cout << readingFinished << "    " << bassQ->isEmpty() << std::endl;
 	}
+	std::cout << "Bass thread is klaar" << std::endl;
+	bassFinished = 1;
+	
+
 }
 
 void File::trebleMod(void)
 {
 	Block * block;
 	int i = 0;
-	while (1)
+	while (bassFinished != 1 || trebleQ->isEmpty() == 0)
 	{
 		treblemtx.lock();
 		while (trebleQ->isEmpty()) {
@@ -96,14 +108,17 @@ void File::trebleMod(void)
 		filter->trebleModulation(block);
 		writeQ->insert(block);
 		SetEvent(writeCanGet);
+		std::cout << bassFinished << "    " << trebleQ->isEmpty() << std::endl;
 	}
+	trebleFinished = 1;
+	std::cout << "Treble thread is klaar" << std::endl;
 }
 
 void File::writeBuf(void)
 {
 	Block * block;
 	int i = 0;
-	while (1)
+	while (trebleFinished != 1 || writeQ->isEmpty() == 0)
 	{
 		writemtx.lock();
 		while (writeQ->isEmpty()) {
@@ -115,9 +130,12 @@ void File::writeBuf(void)
 		block = writeQ->remove();
 		writemtx.unlock();
 		ResetEvent(writeCanGet);
-		for (int j = 0; j < 1024; j++)
+		for (int j = 0; j < 1024; j++) {
 			outputBuf[(block->getId() * 1024) + j] = block->getData()[j];
+		}
+		std::cout << trebleFinished << "    " << writeQ->isEmpty() << std::endl;
 	}
+	std::cout << "Writing has been finished" << std::endl;
 }
 
 void File::writeFile(void)
