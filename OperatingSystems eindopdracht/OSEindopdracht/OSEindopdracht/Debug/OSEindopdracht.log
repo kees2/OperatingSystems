@@ -1,16 +1,10 @@
-﻿  stdafx.cpp
-  Block.cpp
-  fileHandler.cpp
-c:\users\kees\documents\github\operatingsystems\operatingsystems\operatingsystems eindopdracht\oseindopdracht\oseindopdracht\filehandler.cpp(38): warning C4244: 'initializing': conversion from 'std::streamoff' to 'int', possible loss of data
-  Filters.cpp
-c:\users\kees\documents\github\operatingsystems\operatingsystems\operatingsystems eindopdracht\oseindopdracht\oseindopdracht\filters.cpp(86): warning C4244: '=': conversion from 'double' to 'short', possible loss of data
-c:\users\kees\documents\github\operatingsystems\operatingsystems\operatingsystems eindopdracht\oseindopdracht\oseindopdracht\filters.cpp(102): warning C4244: '=': conversion from 'double' to 'short', possible loss of data
-  OSEindopdracht.cpp
-c:\users\kees\documents\github\operatingsystems\operatingsystems\operatingsystems eindopdracht\oseindopdracht\oseindopdracht\oseindopdracht.cpp(27): warning C4101: 'bassIntensity': unreferenced local variable
-c:\users\kees\documents\github\operatingsystems\operatingsystems\operatingsystems eindopdracht\oseindopdracht\oseindopdracht\oseindopdracht.cpp(30): warning C4101: 'outputFile': unreferenced local variable
-c:\users\kees\documents\github\operatingsystems\operatingsystems\operatingsystems eindopdracht\oseindopdracht\oseindopdracht\oseindopdracht.cpp(26): warning C4101: 'threads': unreferenced local variable
-c:\users\kees\documents\github\operatingsystems\operatingsystems\operatingsystems eindopdracht\oseindopdracht\oseindopdracht\oseindopdracht.cpp(28): warning C4101: 'trebleIntensity': unreferenced local variable
-c:\users\kees\documents\github\operatingsystems\operatingsystems\operatingsystems eindopdracht\oseindopdracht\oseindopdracht\oseindopdracht.cpp(29): warning C4101: 'inputFile': unreferenced local variable
-  Queue.cpp
-  Generating Code...
-  OSEindopdracht.vcxproj -> C:\Users\kees\Documents\GitHub\OperatingSystems\OperatingSystems\OperatingSystems eindopdracht\OSEindopdracht\Debug\OSEindopdracht.exe
+﻿  OSEindopdracht.cpp
+c:\users\kees\documents\github\operatingsystems\operatingsystems\operatingsystems eindopdracht\oseindopdracht\oseindopdracht\oseindopdracht.cpp(36): error C2450: switch expression of type 'char *' is illegal
+  c:\users\kees\documents\github\operatingsystems\operatingsystems\operatingsystems eindopdracht\oseindopdracht\oseindopdracht\oseindopdracht.cpp(36): note: Integral expression required
+c:\users\kees\documents\github\operatingsystems\operatingsystems\operatingsystems eindopdracht\oseindopdracht\oseindopdracht\oseindopdracht.cpp(37): error C2131: expression did not evaluate to a constant
+  c:\users\kees\documents\github\operatingsystems\operatingsystems\operatingsystems eindopdracht\oseindopdracht\oseindopdracht\oseindopdracht.cpp(37): note: failure was caused by a read of a variable outside its lifetime
+  c:\users\kees\documents\github\operatingsystems\operatingsystems\operatingsystems eindopdracht\oseindopdracht\oseindopdracht\oseindopdracht.cpp(37): note: see usage of 'argv'
+c:\users\kees\documents\github\operatingsystems\operatingsystems\operatingsystems eindopdracht\oseindopdracht\oseindopdracht\oseindopdracht.cpp(37): error C2051: case expression not constant
+c:\users\kees\documents\github\operatingsystems\operatingsystems\operatingsystems eindopdracht\oseindopdracht\oseindopdracht\oseindopdracht.cpp(40): error C2361: initialization of 'x' is skipped by 'default' label
+  c:\users\kees\documents\github\operatingsystems\operatingsystems\operatingsystems eindopdracht\oseindopdracht\oseindopdracht\oseindopdracht.cpp(37): note: see declaration of 'x'
+c:\users\kees\documents\github\operatingsystems\operatingsystems\operatingsystems eindopdracht\oseindopdracht\oseindopdracht\oseindopdracht.cpp(44): warning C4065: switch statement contains 'default' but no 'case' labels

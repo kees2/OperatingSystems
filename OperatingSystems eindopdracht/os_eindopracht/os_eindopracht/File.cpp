@@ -71,25 +71,21 @@ void File::bassMod(void)
 	bassmtx.lock();
 	while(readingFinished != 1  || bassQ->isEmpty() == 0)
 	{
-		while (bassQ->isEmpty()) {
+		while (bassQ->isEmpty() && readingFinished != 1) {
 			bassmtx.unlock();
-//			WaitForSingleObject(bassCanGet, INFINITE);
-			::Sleep(1);
+			WaitForSingleObject(bassCanGet, 10);
 			bassmtx.lock();
-			if (readingFinished == 1)
-				break;
 		}
-		if (readingFinished == 1 && bassQ->isEmpty() == 1)
-			break;
-		block = bassQ->remove();
-		bassmtx.unlock();
-		ResetEvent(bassCanGet);
-		i++;
-		filter->bassModulation(block);
-		trebleQ->insert(block);
-		SetEvent(trebleCanGet);
-		bassmtx.lock();
-		//std::cout << readingFinished << "    " << bassQ->isEmpty() << std::endl;
+		if (readingFinished != 1 && bassQ->isEmpty() == 0) {
+			block = bassQ->remove();
+			bassmtx.unlock();
+			ResetEvent(bassCanGet);
+			i++;
+			filter->bassModulation(block);
+			trebleQ->insert(block);
+			SetEvent(trebleCanGet);
+			bassmtx.lock();
+		}
 	}
 	bassmtx.unlock();
 	std::cout << "Bass thread is klaar" << std::endl;
@@ -105,26 +101,21 @@ void File::trebleMod(void)
 	treblemtx.lock();
 	while (bassFinished != 1 || trebleQ->isEmpty() == 0)
 	{
-		while (trebleQ->isEmpty()) {
+		while (trebleQ->isEmpty() && bassFinished != 1) {
 			treblemtx.unlock();
-//			WaitForSingleObject(trebleCanGet, INFINITE);
-			::Sleep(1);
+			WaitForSingleObject(trebleCanGet, 10);
 			treblemtx.lock();
-			if (bassFinished == 1)
-				break;
 		}
-		if (bassFinished == 1 && trebleQ->isEmpty() == 1)
-			break;
-		block = trebleQ->remove();
-		treblemtx.unlock();
-		ResetEvent(trebleCanGet);
-		i++;
-		filter->trebleModulation(block);
-		writeQ->insert(block);
-		SetEvent(writeCanGet);
-		treblemtx.lock();
-
-		//std::cout << bassFinished << "    " << trebleQ->isEmpty() << std::endl;
+		if (bassFinished != 1 && trebleQ->isEmpty() == 0) {
+			block = trebleQ->remove();
+			treblemtx.unlock();
+			ResetEvent(trebleCanGet);
+			i++;
+			filter->trebleModulation(block);
+			writeQ->insert(block);
+			SetEvent(writeCanGet);
+			treblemtx.lock();
+		}
 	}
 	trebleFinished = 1;
 	treblemtx.unlock();
@@ -138,25 +129,21 @@ void File::writeBuf(void)
 	writemtx.lock();
 	while (trebleFinished != 1 || writeQ->isEmpty() == 0)
 	{
-		while (writeQ->isEmpty()) {
+		while (writeQ->isEmpty() && trebleFinished != 1) {
 			writemtx.unlock();
-//			WaitForSingleObject(writeCanGet, INFINITE);
-			::Sleep(1);
+			WaitForSingleObject(writeCanGet, 10);
 			writemtx.lock();
-			if (trebleFinished == 1)
-				break;
 		}
-		if (trebleFinished == 1 && writeQ->isEmpty() == 1)
-			break;
-		i++;
-		block = writeQ->remove();
-		writemtx.unlock();
-		ResetEvent(writeCanGet);
-		for (int j = 0; j < 1024; j++) {
-			outputBuf[(block->getId() * 1024) + j] = block->getData()[j];
+		if (trebleFinished != 1 && writeQ->isEmpty() == 0) {
+			i++;
+			block = writeQ->remove();
+			writemtx.unlock();
+			ResetEvent(writeCanGet);
+			for (int j = 0; j < 1024; j++) {
+				outputBuf[(block->getId() * 1024) + j] = block->getData()[j];
+			}
+			writemtx.lock();
 		}
-		//std::cout << trebleFinished << "    " << writeQ->isEmpty() << std::endl;
-		writemtx.lock();
 	}
 	writemtx.unlock();
 	std::cout << "Writing has been finished" << std::endl;

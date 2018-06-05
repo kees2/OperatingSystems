@@ -7,6 +7,8 @@
 #include "filters.h"
 #include "Inttypes.h"
 #include "fileHandler.h"
+#include <string>
+#include <ctype.h>
 
 #define SAMPLE_RATE 44100 // Hz
 #define BITS_PER_SAMPLE 16 // bits
@@ -28,38 +30,53 @@ int main(int argc, char** argv)
 	int trebleIntensity;
 	char * inputFile;
 	char * outputFile;
-	/*
-	if (argc == 6)
-	{
-		if ((argv[1] >= 1) && (arv[1] <= 8))
-			threads = argv[1];
-		else
-			cout << "aantal threads moet 1 t/m 8 zijn" << endl;
-		if ((argv[2] >= -6) && (arv[2] <= 6))
-			bassIntensity = argv[2];
-		else
-			cout << "bass intensity moet -6 t/m 6 zijn" << endl;
-		if ((argv[3] >= -6) && (arv[3] <= 6))
-			trebleIntensity = argv[3];
-		else
-			cout << "bass intensity moet -6 t/m 6 zijn" << endl;
-		if (argv[4] == "you_and_i.pcm")
-			inputFile = argv[4];
-		else
-			cout << "foute input file" << endl;
-		if (argv[5] == "OutFile.pcm")
-			inputFile = argv[5];
-		else
-			cout << "foute output file" << endl;
-	}
-	else
-		cout << "Foute parameters" << endl;
 
-	*/
+	for (int i = 0; i < argc; i += 2) {
+		std::cout << argv[i] << std::endl;
+
+		string temp = argv[i];
+
+
+		if (temp == "p") {
+			if (((int)argv[i + 1] >= 1) && ((int)argv[i + 1] <= 8)) {
+				threads = argv[i + 1]
+			}
+			else {
+				std::cout << "aantal threads moet 1 t/m 8 zijn" << std::endl;
+			}
+		}
+		else if (temp == "b") {
+			if (((int)argv[i + 1] >= -6) && ((int)argv[i + 1] <= 6)) {
+				bassIntensity = argv[i + 1];
+			}
+			else {
+				std::cout << "bass intensity moet -6 t/m 6 zijn" << std::endl;
+			}
+		}
+		else if (temp == "t") {
+			if (((int)argv[i + 1] >= -6) && ((int)argv[i + 1] <= 6)) {
+				trebleIntensity = argv[i + 1];
+			}
+			else {
+				std::cout << "treble intensity moet -6 t/m 6 zijn" << std::endl;
+			}
+		}
+		else if (temp == "inputFile") {
+				inputFile = argv[i + 1];
+		}
+		else if (temp == "outputFile") {
+				outputFile = argv[i + 1];
+		}
+
+	}
+	
+	
+
+	/*
 	file1.readFile("you_and_i.pcm");
 	file1.writeFile("OutFile.pcm");
 
-
+	*/
 	cin.get();
 	return 0;
 }
@@ -132,8 +149,8 @@ void writePCM(int16_t *data, unsigned int samp_rate, unsigned int bits_per_samp,
 
 
 
-
 /*
+
 for (int i = 0; i < argc; i++) {
 cout << argv[i] << endl;
 if (argv[i][0] == 'k') {
