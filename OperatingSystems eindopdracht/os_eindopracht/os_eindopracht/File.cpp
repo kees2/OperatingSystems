@@ -72,7 +72,7 @@ void File::bassMod(void)
 			WaitForSingleObject(bassCanGet, 10);
 			bassmtx.lock();
 		}
-		if (!readDone || !bassQ->isEmpty()) {
+		if (!readDone && !bassQ->isEmpty()) {
 			block = bassQ->remove();
 			bassmtx.unlock();
 			ResetEvent(bassCanGet);
@@ -97,7 +97,7 @@ void File::trebleMod(void)
 			WaitForSingleObject(trebleCanGet, 10);
 			treblemtx.lock();
 		}
-		if (!bassDone || !trebleQ->isEmpty()) {
+		if (!bassDone && !trebleQ->isEmpty()) {
 			block = trebleQ->remove();
 			treblemtx.unlock();
 			ResetEvent(trebleCanGet);
@@ -122,11 +122,11 @@ void File::writeBuf(void)
 			WaitForSingleObject(writeCanGet, 10);
 			writemtx.lock();
 		}
-		if (!trebleDone || !writeQ->isEmpty()) {
+		if (!trebleDone && !writeQ->isEmpty()) {
 			block = writeQ->remove();
 			writemtx.unlock();
 			ResetEvent(writeCanGet);
-			for (int j = 0; j < 1024; j++) {
+			for (int j = 3; j < 1024; j++) {
 				outputBuf[(block->getId() * 1024) + j] = block->getData()[j];
 			}
 			writemtx.lock();
