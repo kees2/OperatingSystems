@@ -1,2 +1,5 @@
-﻿  os_eindopracht.cpp
+﻿  File.cpp
+c:\users\stan\cloudstation\drive\workspaces\workspace visual studio\operating systems\os_eindopracht\os_eindopracht\file.cpp(17): warning C4244: '=': conversion from 'std::streamoff' to 'int', possible loss of data
+  os_eindopracht.cpp
+  Generating Code...
   os_eindopracht.vcxproj -> C:\Users\stan\CloudStation\Drive\workspaces\workspace Visual Studio\Operating systems\os_eindopracht\Debug\os_eindopracht.exe
