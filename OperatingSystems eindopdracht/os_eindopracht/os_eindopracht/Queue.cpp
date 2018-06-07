@@ -44,13 +44,7 @@ Block* Queue::peek(void)
 
 bool Queue::isEmpty(void)
 {
-	if (count == 0) {
-		return 1;
-	}
-	else {
-		return 0;
-	}
-	//return(head == nullptr);
+	return(head == nullptr);
 }
 
 int Queue::getCount(void)

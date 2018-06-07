@@ -17,6 +17,7 @@ private:
 	Filter * filter;
 	HANDLE bassCanGet, trebleCanGet, writeCanGet;
 	std::mutex bassmtx, treblemtx, writemtx;
+	bool readDone, bassDone, trebleDone;
 public:
 	File(void);
 	File(const char * new_input, const char * new_output, int bassIntensity, int trebleIntensity);
